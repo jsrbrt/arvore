@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form action="conexLogin.php" method="POST">
+    
+            <!--Nome-->
+            <div class="input-container">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="usuario_nome" name="usuario_nome" placeholder="Nome de Usuário" required>
+            </div>
+    
+            <!--senha-->
+            <div class="input-container">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="usuario_senha" name="usuario_senha" placeholder="Senha" required>
+            </div>
+
+            <button type="submit">Entrar</button>        
+        </form>
+    </div>
+    
+</body>
+</html>

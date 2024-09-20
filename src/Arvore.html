@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <script type="text/javascript" src="js/vis.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árvore de Magia</title>
+    <h1>Pontos de Poder: <span id="pontos"></span></h1>
+    
+    <link href="css/css.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div id="skilltree"></div>
+
+    <button id="load-positions">Carregar Árvore</button>
+    
+    <form id="myForm" action="salvarEstado.php" method="POST">
+        <!-- Campo oculto para armazenar a variável existente -->
+        <input type="hidden" id="minhaVariavel" name="minhaVariavel">
+
+        <!-- Botão para submeter o formulário -->
+        <button type="submit" id="extract-positions">Enviar Variável</button>
+    </form>
+    
+    <script src="script.js"></script>
+</body>
+</html>
