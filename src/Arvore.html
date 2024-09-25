@@ -12,7 +12,19 @@
 </head>
 <body>
 <div id="skilltree"></div>
-
+<script>
+    fetch('carregarEstado.php')
+        .then(response => response.json())
+        .then(estadoSalvo => {
+            if (estadoSalvo != null) {
+                estadoSalvo.forEach(nodePosition => {
+                    data.nodes.update(nodePosition);
+                });
+                updatepontosDisplay();
+                updateNodeDisplay();
+            }
+        })
+</script>
     <button id="load-positions">Carregar Árvore</button>
     
     <form id="myForm" action="salvarEstado.php" method="POST">

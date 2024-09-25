@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
     echo json_encode(["erro" => "Usuário não logado"]);
     exit();
 }
-
 $servername = "localhost";
 $username = "root";
 $password = "root";

@@ -30,7 +30,6 @@ $stmt->bind_param("si", $estado, $user_id);
 if ($stmt->execute()) {
     echo json_encode(['success' => 'Estado salvo com sucesso']);
     header("Location: arvore.html"); // Redirecionar para a árvore
-
 } else {
     echo json_encode(['error' => 'Erro ao salvar o estado']);
 }
