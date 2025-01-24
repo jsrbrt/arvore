@@ -6,35 +6,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Árvore de Magia</title>
-    <h1>Pontos de Poder: <span id="pontos"></span></h1>
     
     <link href="css/css.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div id="skilltree"></div>
-<script>
-    fetch('carregarEstado.php')
-        .then(response => response.json())
-        .then(estadoSalvo => {
-            if (estadoSalvo != null) {
-                estadoSalvo.forEach(nodePosition => {
-                    data.nodes.update(nodePosition);
-                });
-                updatepontosDisplay();
-                updateNodeDisplay();
-            }
-        })
-</script>
+
     <button id="load-positions">Carregar Árvore</button>
     
     <form id="myForm" action="salvarEstado.php" method="POST">
         <!-- Campo oculto para armazenar a variável existente -->
-        <input type="hidden" id="minhaVariavel" name="minhaVariavel">
+        <input type="hidden" id="estado" name="estado">
+        Pontos de Poder <input type="number" id="pontos" name="pontos" >
 
         <!-- Botão para submeter o formulário -->
         <button type="submit" id="extract-positions">Enviar Variável</button>
-    </form>
-    
+    </form>  
     <script src="script.js"></script>
 </body>
 </html>

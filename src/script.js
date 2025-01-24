@@ -3,13 +3,14 @@ const corPodeComprar = "green";
 const corComprado = "skyblue";
 const corban = "yellow";
 	
-var estado = JSON.stringify(data.nodes.map(({ id, group }) => ({ id, group })));
 const container = document.getElementById("skilltree"),
 save = document.getElementById("extract-positions"), 
 load = document.getElementById("load-positions");
-document.getElementById('minhaVariavel').value = estado;
 
-let pontos = 10, dracmas = 0; // Variável para armazenar o save dos nós
+let pontos = 11, dracmas = 0, nivel = 1; // Variável para armazenar o save dos nós
+
+const pontosInput = document.getElementById("pontos");
+pontosInput.value = pontos;
 
 let nodes = new vis.DataSet([
 	{ id: 1, size: 50, level: 1, label: "Magia", group: "comprado"},
@@ -263,11 +264,10 @@ let options = {
 let network = new vis.Network(container, data, options); 
 
 // Evento que executa após a estabilização inicial da rede
-network.once("stabilized", updateNodeDisplay());
+network.once("stabilized", updateNodeDisplay);
 network.on("click", ({ nodes: clickedNodes }) => {
 	let clickedNodeId = clickedNodes[0];
     let node = nodes.get(clickedNodeId); 
-	loadState();
 
 	if (clickedNodeId > 4) {
 		if (node.group === "podecomprar" && pontos > 0 && confirm(`Comprar melhoria "${node.label}"? \n- ${node.content} \n\nSobrará ${pontos - 1} Pontos de Poder.`)){
@@ -280,43 +280,47 @@ network.on("click", ({ nodes: clickedNodes }) => {
 	}
 });
 
-save.addEventListener("click", saveState());
+var estado = JSON.stringify(data.nodes.map(({ id, group }) => ({ id, group })));
+document.getElementById('estado').value = estado;
 
-load.addEventListener("click", loadState());
-
-function loadState(){
-    fetch('carregarEstado.php')
-        .then(response => response.json())
-        .then(estadoSalvo => {
-            
-            // Verifique se estadoSalvo é um array antes de usar forEach
-            if (Array.isArray(estadoSalvo)) {
-                estadoSalvo.forEach(nodePosition => {
-                    data.nodes.update(nodePosition);
-                });
-                updatepontosDisplay();
-                updateNodeDisplay();
-            } else {
-                console.error("Erro: os dados retornados não são um array:", estadoSalvo);
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao carregar o estado da árvore:', error);
-        });
-}
-function saveState(){
+save.addEventListener("click", () => {
 	estado = JSON.stringify(data.nodes.map(({ id, group }) => ({ id, group })));
-	document.getElementById('minhaVariavel').value = estado;
+	document.getElementById('estado').value = estado;
+});
+
+load.addEventListener("click", () => loadThings());
+
+function loadThings(){
+	fetch('carregarEstado.php')
+	.then(response => response.json())
+	.then(estadoSalvo => {
+		console.log('Dados recebidos:', estadoSalvo);
+		const arv = estadoSalvo.estado_arvore;
+		const p = estadoSalvo.pontos;
+
+		if (Array.isArray(arv)) {
+			arv.forEach(nodePosition => {
+				data.nodes.update(nodePosition);
+			});
+			pontos = p;
+			updatepontosDisplay();
+			updateNodeDisplay();
+		} else {
+			console.error("Erro: os dados retornados não são um array:", estadoSalvo);
+		}
+	})
+	.catch(error => {
+		console.error('Erro ao carregar o estado da árvore:', error);
+	});
 }
 function updatepontosDisplay() { 
-	document.getElementById("pontos").textContent = pontos; 
+	document.getElementById("pontos").value = pontos;
 }
 function updateNodeDisplay() {
 	nodes.forEach(node => {
 		if (node.group !== "comprado") node.group = canBuyNode(node.id) && pontos >= 1 ? "podecomprar" : "naopodecomprar";
 	});
 	nodes.update(nodes.get());
-	loadState();
 }
 function canBuyNode(nodeId) { // Verifica as arestas que levam até este nó
 	return edges.get({ filter: edge => edge.to === nodeId }).some(edge => nodes.get(edge.from).group === "comprado");
@@ -330,5 +334,6 @@ function refundNodeAndDescendants(nodeId) {
 		let node = nodes.get(id);
 		if (node.group === "comprado") { pontos++; node.group = "podecomprar"; nodes.update(node); }
 	});
+	updatepontosDisplay(); updateNodeDisplay();
 }
-updatepontosDisplay();
+loadThings();

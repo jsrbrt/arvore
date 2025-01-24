@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     echo json_encode(["erro" => "Usuário não logado"]);
     exit();
 }
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
@@ -21,10 +22,10 @@ if ($conn->connect_error) {
 $user_id = $_SESSION['user_id'];
 
 // Buscar o estado da árvore do banco de dados
-$stmt = $conn->prepare("SELECT estado_arvore FROM cadastro WHERE usuario_id = ?");
+$stmt = $conn->prepare("SELECT estado_arvore, pontos FROM cadastro WHERE usuario_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$stmt->bind_result($estado_arvore);
+$stmt->bind_result($estado_arvore, $pontos);
 $stmt->fetch();
 $stmt->close();
 $conn->close();
@@ -32,8 +33,11 @@ $conn->close();
 // Certifique-se de que está retornando um JSON válido
 if ($estado_arvore) {
     // Decodifica a string JSON e a re-encoda para garantir um JSON válido
-    $estado_arvore_decoded = json_decode($estado_arvore, true);
-    echo json_encode($estado_arvore_decoded); // Certifique-se de que está retornando um array/objeto JSON
+    $response = [
+        'estado_arvore' => json_decode($estado_arvore, true),
+        'pontos' => $pontos
+    ];
+    echo json_encode($response); // Certifique-se de que está retornando um array/objeto JSON
 } else {
     echo json_encode([]);
 }
