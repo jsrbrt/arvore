@@ -1,5 +1,113 @@
 #skilltree {
     width: 100%;
     height: 600px;
-    border: 1px solid black;
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    background: linear-gradient(to bottom, #f5f5f5, #eaeaea);
+    position: relative; /* Adicionado para que o overlay seja posicionado relativamente à skilltree */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+
+#overlay {
+    position: absolute; /* Alterado de 'fixed' para 'absolute' */
+    top: 20px; /* Posicionamento relativo à skilltree */
+    right: 20px; /* Posicionamento relativo à skilltree */
+    width: 25%;
+    max-width: 300px;
+    height: 539px; /* Ajustado para ser flexível */
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px; /* Bordas arredondadas */
+    border-bottom: 5px solid #ffffff; /* Adiciona uma borda na parte de baixo */
+    color: white; /* Cor do texto */
+    z-index: 1; /* Garante que o overlay fique acima da skilltree */
+}
+
+#comprar {
+    margin-top: auto; /* Move o botão para a parte inferior */
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#comprar:hover {
+    background-color: #45a049;
+}
+
+#overlay p {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #4CAF50, #45A049);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: linear-gradient(to right, #45A049, #4CAF50);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    #overlay {
+        width: 90%;
+        max-width: none;
+        top: 10px;
+        right: 10px;
+    }
+
+    #skilltree {
+        height: 400px;
+    }
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.popup button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.popup button#confirmYes {
+    background-color: green;
+    color: white;
+}
+
+.popup button#confirmNo {
+    background-color: red;
+    color: white;
 }

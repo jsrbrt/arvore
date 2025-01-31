@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <link href="css/css.css" type="text/css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
     <div class="container">
+        <h2>Faça seu Login</h2>
         <form action="conexLogin.php" method="POST">
-    
-            <!--Nome-->
+
             <div class="input-container">
-                <i class="fa-regular fa-user"></i>
+                <i class="fas fa-user"></i>
                 <input type="text" id="usuario_nome" name="usuario_nome" placeholder="Nome de Usuário" required>
             </div>
-    
-            <!--senha-->
+
             <div class="input-container">
-                <i class="fa-solid fa-lock"></i>
+                <i class="fas fa-lock"></i>
                 <input type="password" id="usuario_senha" name="usuario_senha" placeholder="Senha" required>
             </div>
 
-            <button type="submit">Entrar</button>        
+            <button type="submit" class="btn">Entrar</button>  
         </form>
     </div>
-    
+
 </body>
 </html>

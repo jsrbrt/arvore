@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 // Capturar dados do formulário
 $nome = $_POST['usuario_nome'];
 $senha = password_hash($_POST['usuario_senha'], PASSWORD_BCRYPT);
-$estado = $_POST['minhaVariavel'];
+$estado = $_POST['estado'];
 
 // Preparar e executar a consulta
 $stmt = $conn->prepare("INSERT INTO cadastro (usuario_nome, usuario_senha, estado_arvore) VALUES (?, ?, ?)");

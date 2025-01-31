@@ -10,18 +10,35 @@
     <link href="css/css.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div id="skilltree"></div>
+    <div>
+        <div id="skilltree"></div> 
 
-    <button id="load-positions">Carregar Árvore</button>
-    
-    <form id="myForm" action="salvarEstado.php" method="POST">
-        <!-- Campo oculto para armazenar a variável existente -->
-        <input type="hidden" id="estado" name="estado">
-        Pontos de Poder <input type="number" id="pontos" name="pontos" >
+        <div id="overlay">
+            <h1>Pontos de Poder: <span id="visPontos"></span></h1>
 
-        <!-- Botão para submeter o formulário -->
-        <button type="submit" id="extract-positions">Enviar Variável</button>
-    </form>  
-    <script src="script.js"></script>
+            <h2 id="tituloNode"></h2>
+            <p id="textoNode"></p>
+            
+            <button id="comprar">Comprar melhoria</button>
+        </div>
+
+        <div id="confirm" class="popup">
+            <p id="textoConfirmacao"></p>
+            <button id="confirmYes">Yes</button>
+            <button id="confirmNo">No</button>
+        </div>
+
+        <div style="display: flex; gap: 10px">
+                <form id="myForm" action="salvarEstado.php" method="POST">
+                    <!-- Campo oculto para armazenar a variável existente -->
+                    <input type="hidden" id="estado" name="estado">
+                    <input type="hidden" id="pontos" name="pontos" >
+            
+                    <button type="submit" id="salvar">Salvar Árvore</button>
+                </form>
+                <button id="carregar">Carregar Árvore</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
